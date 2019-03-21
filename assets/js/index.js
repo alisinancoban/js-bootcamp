@@ -1,18 +1,21 @@
-//ES5 syntax
-function Person(firstname, lastname, birthyear){
-    lastname === undefined ? lastname = "Noname" : lastname = lastname;
-    birthyear === undefined ? birthyear = 1753 : birthyear = birthyear;
+const dictionary = new Map();
+dictionary.set("question", "How are you");
+dictionary.set(1,"js");
+dictionary.set(2,"react");
+dictionary.set(3,"vue");
+dictionary.set(true, "Correct");
 
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.birthyear = birthyear;
+console.log(dictionary.get(1));
+confirm.log(dictionary.size);
+
+if(dictionary.has(3)){
+    dictionary.delete(3);
 }
 
-//ES6 syntax
-function Person(firstname, lastname = "Noname", birthyear = 1753){
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.birthyear = birthyear;
-}
+dictionary.forEach((value, key) => console.log(`${key} ${value}`));
 
-var person = new Person("Sinan");
+for(let [key, value] of dictionary.entries()){
+    if(typeof(key) === 'number'){
+        console.log(`${key} : ${value}`);
+    }
+}
