@@ -1,15 +1,14 @@
-const boxes = document.querySelectorAll(".boxes");
-
 //ES5 syntax
-var arr5 = Array.prototype.slice.call(boxes);
-arr5.forEach(function(current){
-    current.style.backgroundColor = "blue";
-});
+function es5(limit){
+    //it is not a array
+    var arr5 = Array.prototype.slice.call(arguments, 1); //for expect limit
 
-var arr6 = Array.from(boxes);
-arr6.forEach(current => current.style.backgroundColor = "blue");
+    arr5.forEach(function(current){
+        console.log(current);
+    });
+}
 
-//-------------- for of loop ---------------
-for(const current of arr6){
-    current.style.backgroundColor = "blue";
+//ES6 syntax
+function es6(limit, ...parameters){
+    parameters.forEach(element => console.log(element));
 }
