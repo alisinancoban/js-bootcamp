@@ -1,35 +1,15 @@
-const numbers = [1,2,3,4,5];
+const boxes = document.querySelectorAll(".boxes");
 
 //ES5 syntax
-var es5 = numbers.map(function(current){
-   return current; 
+var arr5 = Array.prototype.slice.call(boxes);
+arr5.forEach(function(current){
+    current.style.backgroundColor = "blue";
 });
 
-//ES6 syntax
-var es6 = numbers.map(current => current);
-var es6 = numbers.map((current, index) => {
-    return `${current} index is ${index}`;
-});
+var arr6 = Array.from(boxes);
+arr6.forEach(current => current.style.backgroundColor = "blue");
 
-// ------------------- Arrow function 2 this -----------------
-var es5 = {
-    color: "green",
-    position: 1,
-    click: function(){
-        var self = this;//if you can`t do that this refers to the global object
-        document.querySelector(".green").addEventListener("click", function(){
-            alert(self.color + self.position);
-        });
-    }
-};
-
-var es6 = {
-    color: "green",
-    position: 1,
-    click: function(){
-        document.querySelector(".green").addEventListener("click", () => {
-            alert(this.color + this.position);
-        });
-    }
-};
-
+//-------------- for of loop ---------------
+for(const current of arr6){
+    current.style.backgroundColor = "blue";
+}
