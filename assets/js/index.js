@@ -1,14 +1,18 @@
 //ES5 syntax
-function es5(limit){
-    //it is not a array
-    var arr5 = Array.prototype.slice.call(arguments, 1); //for expect limit
+function Person(firstname, lastname, birthyear){
+    lastname === undefined ? lastname = "Noname" : lastname = lastname;
+    birthyear === undefined ? birthyear = 1753 : birthyear = birthyear;
 
-    arr5.forEach(function(current){
-        console.log(current);
-    });
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.birthyear = birthyear;
 }
 
 //ES6 syntax
-function es6(limit, ...parameters){
-    parameters.forEach(element => console.log(element));
+function Person(firstname, lastname = "Noname", birthyear = 1753){
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.birthyear = birthyear;
 }
+
+var person = new Person("Sinan");
