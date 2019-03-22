@@ -1,21 +1,32 @@
-const dictionary = new Map();
-dictionary.set("question", "How are you");
-dictionary.set(1,"js");
-dictionary.set(2,"react");
-dictionary.set(3,"vue");
-dictionary.set(true, "Correct");
-
-console.log(dictionary.get(1));
-confirm.log(dictionary.size);
-
-if(dictionary.has(3)){
-    dictionary.delete(3);
+//ES5 syntax
+function Person5(name, lastname, birthYear){
+    this.name = name;
+    this.lastname = lastname;
+    this.birthYear = birthYear;
 }
 
-dictionary.forEach((value, key) => console.log(`${key} ${value}`));
+Person5.prototype.calculateAge = function(){
+    return new Date().getFullYear - this.birthYear;
+};
 
-for(let [key, value] of dictionary.entries()){
-    if(typeof(key) === 'number'){
-        console.log(`${key} : ${value}`);
+var person5 = new Person5("name", "lastname", 22);
+//ES6 syntax
+class Person6{
+    constructor(name, lastname, birthYear){
+        this.name = name;
+        this.lastname = lastname;
+        this.birthYear = birthYear;
+    }
+
+    calculateAge(){
+        return new Date().getFullYear - this.birthYear;
+    }
+
+    static greeting(){
+        console.log("Hello");
     }
 }
+
+var person6 = new Person6("name", "lastname", 22);
+Person6.greeting();
+
