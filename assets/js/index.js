@@ -1,95 +1,37 @@
-/* const first = () => {
-    console.log("Hey there");
-    second();
-    console.log("the end");
+function getWeather(woeid) {
+    fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${woeid}/`)
+        .then(result => {
+            console.log(result);
+            return result.json();
+        })
+        .then(data => {
+            console.log(data);
+            const today = data.consolidated_weather[0];
+            console.log(`Temperatures today in ${data.title} stay between ${today.min_temp} and ${today.max_temp}.`);
+        })
+        .catch(error => console.log(error));
+}
+getWeather(2344117);
+
+
+
+async function getWeatherAW(woeid){
+    try{
+        const result = await fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${woeid}/`);
+        const data = await result.json();
+        console.log(data);
+        return data;
+    }
+    catch(error){
+        console.log(error);
+    }
 }
 
-const second = () => {
-    setTimeout(() => {
-        console.log("Async there");
-    }, 2000);
-}
-
-first(); */
-
-/* function getRecipe(){
-    setTimeout(() => {
-        const recepeID = [53,46,12,467];
-        console.log(recepeID);
-
-        setTimeout((id) => {
-            console.log(id);
-            const recepi = {title: "Fresh tomato",
-                            publisher:"jonas"};
-            console.log(`${id}: ${recepi.title}`);
-
-            setTimeout((publisher) => {
-                const recepi = {title: "pizza",
-                            publisher:"jonas"};
-                console.log(recepi);
-            }, 1500, recepi.publisher);
-        }, 1500, recepeID[2]);
-    },2000)
-}   
-getRecipe(); */
-
-const getIDs = new Promise((resolve, reject) => {
-    setTimeout(function(){
-        resolve([53,46,12,467]);
-        //reject("error!!!");
-    }, 1500);
-});
-
-console.log(getIDs);
-
-const getRecipe = function(recID){
-    return new Promise(function(resolve, reject){
-        setTimeout(function(id){
-            const recipe = {title:"fresh tomato", publisher: "Jonas"};
-            resolve(`${id}: ${recipe.title}`); 
-        }, 1500, recID);
-        
-    }); 
-}
-
-const getRelated = publisher => {
-    return new Promise((resolve, reject) => {
-        setTimeout(pub => {
-            const recipe2 = {title: "Italian Pizza", publisher: "Sinan"};
-            resolve(recipe2);
-        }, 1500, publisher);
-    });
-}
-
-/* getIDs
-.then(function(IDs){
-    console.log(IDs);
-    return getRecipe(IDs[2])
-})
-.then(recipe => {
-    console.log(recipe);
-    return getRelated("");
-})
-.then(recipe => {
-    console.log(recipe.publisher);
-})
-.catch(error => {
-    console.log("error" + " " + error);
-}); */
-
-async function getRecipeAW(){
-    const IDs = await getIDs;
-    console.log(IDs);
-    const recipe = await getRecipe(IDs[2]);
-    console.log(recipe);
-    const related = await getRelated("Coban");
-    console.log(related.publisher + " " + related.title);
-
-    return recipe;
-}
-
-getRecipeAW()
+getWeatherAW(44418)
+getWeatherAW(2344117)
+getWeatherAW(2487956)
 .then(result => {
-    console.log(result); 
-});
-
+    const today = result.consolidated_weather[0];
+    console.log(`Temperatures today in ${result.title} stay between ${today.min_temp} and ${today.max_temp}.`); 
+})
+.catch(error => console.log(error)) //can not catch getWeatherAW error
