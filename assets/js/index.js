@@ -1,22 +1,78 @@
-//JavaScript's with statement was intended to provide a shorthand for writing recurring accesses to objects. So instead of writing
-
-ooo.eee.oo.ah_ah.ting.tang.walla.walla.bing = true;
-ooo.eee.oo.ah_ah.ting.tang.walla.walla.bang = true;
-//You can write
-
-with (ooo.eee.oo.ah_ah.ting.tang.walla.walla) {
-    bing = true;
-    bang = true;
+/* const first = () => {
+    console.log("Hey there");
+    second();
+    console.log("the end");
 }
-//That looks a lot nicer. Except for one thing. There is no way that you can tell by looking at the code which bing and bang will get modifed. Will ooo.eee.oo.ah_ah.ting.tang.walla.walla be modified? Or will the global variables bing and bang get clobbered? It is impossible to know for sure.
 
-//The with statement adds the members of an object to the current scope. Only if there is a bing in ooo.eee.oo.ah_ah.ting.tang.walla.walla will ooo.eee.oo.ah_ah.ting.tang.walla.walla.bing be accessed.
+const second = () => {
+    setTimeout(() => {
+        console.log("Async there");
+    }, 2000);
+}
 
-//If you can't read a program and be confident that you know what it is going to do, you can't have confidence that it is going to work correctly. For this reason, the with statement should be avoided.
+first(); */
 
-//Fortunately, JavaScript also provides a better alternative. We can simply define a var.
+/* function getRecipe(){
+    setTimeout(() => {
+        const recepeID = [53,46,12,467];
+        console.log(recepeID);
 
-var o = ooo.eee.oo.ah_ah.ting.tang.walla.walla;
-o.bing = true;
-o.bang = true;
-//Now there is no ambiguity. We can have confidence that it is ooo.eee.oo.ah_ah.ting.tang.walla.walla.bing and ooo.eee.oo.ah_ah.ting.tang.walla.walla.bang that are being set, and not some hapless variables.
+        setTimeout((id) => {
+            console.log(id);
+            const recepi = {title: "Fresh tomato",
+                            publisher:"jonas"};
+            console.log(`${id}: ${recepi.title}`);
+
+            setTimeout((publisher) => {
+                const recepi = {title: "pizza",
+                            publisher:"jonas"};
+                console.log(recepi);
+            }, 1500, recepi.publisher);
+        }, 1500, recepeID[2]);
+    },2000)
+}   
+getRecipe(); */
+
+const getIDs = new Promise((resolve, reject) => {
+    setTimeout(function(){
+        resolve([53,46,12,467]);
+        //reject("error!!!");
+    }, 1500);
+});
+
+console.log(getIDs);
+
+const getRecipe = function(recID){
+    return new Promise(function(resolve, reject){
+        setTimeout(function(id){
+            const recipe = {title:"fresh tomato", publisher: "Jonas"};
+            resolve(`${id}: ${recipe.title}`); 
+        }, 1500, recID);
+        
+    }); 
+}
+
+const getRelated = publisher => {
+    return new Promise((resolve, reject) => {
+        setTimeout(pub => {
+            const recipe2 = {title: "Italian Pizza", publisher: "Sinan"};
+            resolve(recipe2);
+        }, 1500, publisher);
+    });
+}
+
+getIDs
+.then(function(IDs){
+    console.log(IDs);
+    return getRecipe(IDs[2])
+})
+.then(recipe => {
+    console.log(recipe);
+    return getRelated("");
+})
+.then(recipe => {
+    console.log(recipe.publisher);
+})
+.catch(error => {
+    console.log("error" + " " + error);
+});
