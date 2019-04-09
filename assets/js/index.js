@@ -61,7 +61,7 @@ const getRelated = publisher => {
     });
 }
 
-getIDs
+/* getIDs
 .then(function(IDs){
     console.log(IDs);
     return getRecipe(IDs[2])
@@ -75,4 +75,21 @@ getIDs
 })
 .catch(error => {
     console.log("error" + " " + error);
+}); */
+
+async function getRecipeAW(){
+    const IDs = await getIDs;
+    console.log(IDs);
+    const recipe = await getRecipe(IDs[2]);
+    console.log(recipe);
+    const related = await getRelated("Coban");
+    console.log(related.publisher + " " + related.title);
+
+    return recipe;
+}
+
+getRecipeAW()
+.then(result => {
+    console.log(result); 
 });
+
