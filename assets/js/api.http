@@ -1,0 +1,13 @@
+GET http://www.omdbapi.com/?apikey=63f944af&t=arif
+
+###
+POST http://jsonplaceholder.typicode.com/posts
+Content-Type: application/json
+
+{
+    "title":"Mypost",
+    "body":"deneme"
+}
+
+
+
